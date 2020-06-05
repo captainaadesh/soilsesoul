@@ -14,6 +14,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import 'phone_sms/phone_otp_sign_in_page.dart';
+import 'phone_sms/phone_otp_sign_in_page.dart';
+import 'phone_sms/phone_otp_sign_in_page.dart';
+
 class SignInPageBuilder extends StatelessWidget {
   // P<ValueNotifier>
   //   P<SignInManager>(valueNotifier)
@@ -45,7 +49,7 @@ class SignInPage extends StatelessWidget {
       : super(key: key);
   final SignInManager manager;
   final String title;
-  final bool  isLoading;
+  final bool isLoading;
 
   static const Key googleButtonKey = Key('google');
   static const Key facebookButtonKey = Key('facebook');
@@ -115,11 +119,13 @@ class SignInPage extends StatelessWidget {
       onSignedIn: navigator.pop,
     );
   }
-  Future<void> _signInWithPhoneAndOtp(BuildContext context) async {
-    final navigator = Navigator.of(context);
-    await EmailPasswordSignInPage.show(
+
+  void _signInWithPhoneAndOtp(BuildContext context) {
+    Navigator.push(
       context,
-      onSignedIn: navigator.pop,
+      MaterialPageRoute(
+        builder: (context) => SignInWithOTPPage(),
+      ),
     );
   }
 
@@ -213,7 +219,8 @@ class SignInPage extends StatelessWidget {
             SignInButton(
               key: phoneOtpButtonKey,
               text: Strings.signInWithPhoneOtp,
-              onPressed: isLoading ? null : () => _signInWithPhoneAndOtp(context),
+              onPressed:
+                  isLoading ? null : () => _signInWithPhoneAndOtp(context),
               textColor: Colors.white,
               color: Colors.orange[700],
             ),
