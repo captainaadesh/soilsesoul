@@ -16,8 +16,6 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'phone_sms/phone_otp_sign_in_page.dart';
 
-
-
 class SignInPageBuilder extends StatelessWidget {
   // P<ValueNotifier>
   //   P<SignInManager>(valueNotifier)
