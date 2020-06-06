@@ -2,6 +2,7 @@ import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:firebase_auth_demo_flutter/app/sign_in/developer_menu.dart';
 import 'package:firebase_auth_demo_flutter/app/sign_in/email_password/email_password_sign_in_page.dart';
 import 'package:firebase_auth_demo_flutter/app/sign_in/email_link/email_link_sign_in_page.dart';
+import 'package:firebase_auth_demo_flutter/app/sign_in/phone_sms/phone_otp_sign_in_page.dart';
 import 'package:firebase_auth_demo_flutter/app/sign_in/sign_in_manager.dart';
 import 'package:firebase_auth_demo_flutter/app/sign_in/social_sign_in_button.dart';
 import 'package:firebase_auth_demo_flutter/common_widgets/platform_exception_alert_dialog.dart';
@@ -13,6 +14,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'phone_sms/phone_otp_sign_in_page.dart';
+
+
 
 class SignInPageBuilder extends StatelessWidget {
   // P<ValueNotifier>
@@ -45,7 +49,7 @@ class SignInPage extends StatelessWidget {
       : super(key: key);
   final SignInManager manager;
   final String title;
-  final bool  isLoading;
+  final bool isLoading;
 
   static const Key googleButtonKey = Key('google');
   static const Key facebookButtonKey = Key('facebook');
@@ -115,11 +119,13 @@ class SignInPage extends StatelessWidget {
       onSignedIn: navigator.pop,
     );
   }
-  Future<void> _signInWithPhoneAndOtp(BuildContext context) async {
-    final navigator = Navigator.of(context);
-    await EmailPasswordSignInPage.show(
-      context,
-      onSignedIn: navigator.pop,
+
+  void _signInWithPhoneAndOtp(BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SignInWithOTPPage(),
+        ),
     );
   }
 
@@ -213,7 +219,8 @@ class SignInPage extends StatelessWidget {
             SignInButton(
               key: phoneOtpButtonKey,
               text: Strings.signInWithPhoneOtp,
-              onPressed: isLoading ? null : () => _signInWithPhoneAndOtp(context),
+              onPressed:
+                  isLoading ? null : () => _signInWithPhoneAndOtp(context),
               textColor: Colors.white,
               color: Colors.orange[700],
             ),
